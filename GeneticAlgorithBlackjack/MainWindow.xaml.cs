@@ -22,6 +22,7 @@ namespace GeneticAlgorithBlackjack
     {
         public MainWindow()
         {
+            //this is just a test.
             InitializeComponent();
         }
     }
