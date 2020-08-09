@@ -36,6 +36,23 @@ namespace GeneticAlgorithBlackjack.representation
             return (Cards[0].Rank == Cards[1].Rank);
         }
 
+        public bool HasSoftAce()
+        {
+            // Primero verificamos si hay Aces
+            int numAces = Cards.Count(c => c.Rank == Card.Ranks.Ace);
+            if (numAces == 0) return false;
+
+            // Si tenemos mas de una As, tomamos una con el valor de 11 y las otras con valor de 1, debido a que no
+            // no podemos tomar mas de 11 con 11 porque se pasaría de 21.
+            int total = 11 +
+                Cards
+                    .Where(c => c.Rank != Card.Ranks.Ace)
+                    .Sum(c => c.RankValueLow) +
+                (numAces - 1);
+
+            return (total <= 21);
+        }
+
         public int HandValue()
         {
             // Retorna el mejor valor de la mano
