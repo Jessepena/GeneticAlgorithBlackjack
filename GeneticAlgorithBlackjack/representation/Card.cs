@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GeneticAlgorithBlackjack.representation
+namespace GeneticAlgorithBlackjack.Representation
 {
     class Card
     {
@@ -13,6 +13,45 @@ namespace GeneticAlgorithBlackjack.representation
 
         public Ranks Rank { get; set; }
         public Suits Suit { get; set; }
+
+        private static List<Ranks> rankList;
+        private static List<Suits> suitList;
+
+        public Card(Ranks rankValue, Suits suit)
+        {
+            Rank = rankValue;
+            Suit = suit;
+        }
+
+        public static List<Ranks> ListOfRanks
+        {
+            get
+            {
+                if (rankList != null) return rankList;
+
+                var result = new List<Ranks>();
+                var ranks = Enum.GetValues(typeof(Ranks));
+                foreach (var rank in ranks)
+                    result.Add((Ranks)rank);
+                rankList = result;
+                return result;
+            }
+        }
+
+        public static List<Suits> ListOfSuits
+        {
+            get
+            {
+                if (suitList != null) return suitList;
+
+                var suits = Enum.GetValues(typeof(Suits));
+                var result = new List<Suits>();
+                foreach (var suit in suits)
+                    result.Add((Suits)suit);
+                suitList = result;
+                return result;
+            }
+        }
 
         public int RankValueHigh
         {

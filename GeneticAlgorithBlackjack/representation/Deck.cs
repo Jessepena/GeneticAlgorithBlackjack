@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GeneticAlgorithBlackjack.representation
+namespace GeneticAlgorithBlackjack.Representation
 {
     class Deck
     {
