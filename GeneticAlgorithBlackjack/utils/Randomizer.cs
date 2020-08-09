@@ -1,7 +1,7 @@
 using System;
 using System.Threading;
 
-namespace BlackjackStrategy.utils
+namespace GeneticAlgorithBlackjack.Utils
 {
     public class Randomizer
     {

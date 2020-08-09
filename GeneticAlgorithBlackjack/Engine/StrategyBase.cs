@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 
-namespace GeneticAlgorithBlackjack.Engine
+namespace GeneticAlgorithBlackjack.Representation
 {
 
     // enum de las acciones

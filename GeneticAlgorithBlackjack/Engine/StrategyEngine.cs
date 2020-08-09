@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace BlackjackStrategy.Models
+namespace GeneticAlgorithBlackjack.Models
 {
     public enum GameState
     {
@@ -16,6 +16,5 @@ namespace BlackjackStrategy.Models
         HandComparison,
         RestartPlayerHand
     }
-
-    
+  
 }
