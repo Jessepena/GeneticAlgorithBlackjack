@@ -26,8 +26,9 @@ namespace GeneticAlgorithBlackjack.Representation
 
         public int GenerateFitness(int handsToPlay)
         {
+            return 22;
             int playerChips = 0;
-            var deck = new Deck(testConditions.numDecks);
+            var deck = new Deck(testConditions.NumDecks);
             var randomizer = new Randomizer();
 
             Hand dealerHand = new Hand();
@@ -35,7 +36,13 @@ namespace GeneticAlgorithBlackjack.Representation
             List<Hand> playerHands = new List<Hand>();
             List<int> betAmountPerHand = new List<int>();
 
-            
+            for(int hands=0; hands < handsToPlay; hands++ )
+            {
+                //Primero limpiamos todos los datos para jugar una mano nueva.
+                dealerHand.Cards.Clear();
+                playerHand.Cards.Clear();
+
+            }
         }
 
         

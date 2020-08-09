@@ -24,6 +24,7 @@ namespace GeneticAlgorithBlackjack
         {
             //this is just a test.
             InitializeComponent();
+            
         }
     }
 }

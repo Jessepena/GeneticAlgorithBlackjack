@@ -11,7 +11,7 @@ namespace GeneticAlgorithBlackjack.Representation
         private int currentCard = 0;
         private List<Card> Cards;
         private int numDecks;
-
+        
         public Deck(int numDecksToUse)
         {
             numDecks = numDecksToUse;
