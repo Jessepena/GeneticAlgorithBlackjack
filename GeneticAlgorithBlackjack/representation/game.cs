@@ -4,8 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using GeneticAlgorithBlackjack.Utils;
+using GeneticAlgorithBlackjack.Engine;
 
-namespace GeneticAlgorithBlackjack.representation
+namespace GeneticAlgorithBlackjack.Representation
 {
     public enum GameState
     {
@@ -18,7 +19,7 @@ namespace GeneticAlgorithBlackjack.representation
         RestartPlayerHand
     }
 
-    class game
+    class Game
     {
         private StrategyBase strategy;
         private TestConditions testConditions;
@@ -33,6 +34,8 @@ namespace GeneticAlgorithBlackjack.representation
             Hand playerHand = new Hand();
             List<Hand> playerHands = new List<Hand>();
             List<int> betAmountPerHand = new List<int>();
+
+            
         }
 
         
