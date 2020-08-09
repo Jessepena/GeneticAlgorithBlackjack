@@ -26,7 +26,6 @@ namespace GeneticAlgorithBlackjack.Representation
 
         public int GenerateFitness(int handsToPlay)
         {
-            return 22;
             int playerChips = 0;
             var deck = new Deck(testConditions.NumDecks);
             var randomizer = new Randomizer();
