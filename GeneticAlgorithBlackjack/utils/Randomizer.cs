@@ -1,7 +1,7 @@
 using System;
 using System.Threading;
 
-namespace BlackjackStrategy.utils
+namespace GeneticAlgorithBlackjack.Utils
 {
     public class Randomizer
     {
@@ -34,7 +34,7 @@ namespace BlackjackStrategy.utils
         public float randomFloatFromZeroToOne()
         {
             //retorna un float entre 0 y 1.
-            return randomizer.NextDouble();
+            return (float)randomizer.NextDouble();
         }
 
     }
