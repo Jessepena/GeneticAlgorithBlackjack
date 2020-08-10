@@ -13,3 +13,18 @@ D:\Desktop\Final Proyect\BlackjackGA\BlackjackGA\obj\Debug\BlackjackGA.csproj.Ge
 D:\Desktop\Final Proyect\BlackjackGA\BlackjackGA\obj\Debug\BlackjackGA.csproj.CoreCompileInputs.cache
 D:\Desktop\Final Proyect\BlackjackGA\BlackjackGA\obj\Debug\BlackjackGA.exe
 D:\Desktop\Final Proyect\BlackjackGA\BlackjackGA\obj\Debug\BlackjackGA.pdb
+D:\Desktop\GeneticAlgorithBlackjack\BlackjackGA\bin\Debug\BlackjackGA.exe.config
+D:\Desktop\GeneticAlgorithBlackjack\BlackjackGA\bin\Debug\BlackjackGA.exe
+D:\Desktop\GeneticAlgorithBlackjack\BlackjackGA\bin\Debug\BlackjackGA.pdb
+D:\Desktop\GeneticAlgorithBlackjack\BlackjackGA\obj\Debug\BlackjackGA.csprojAssemblyReference.cache
+D:\Desktop\GeneticAlgorithBlackjack\BlackjackGA\obj\Debug\MainWindow.g.cs
+D:\Desktop\GeneticAlgorithBlackjack\BlackjackGA\obj\Debug\App.g.cs
+D:\Desktop\GeneticAlgorithBlackjack\BlackjackGA\obj\Debug\BlackjackGA_MarkupCompile.cache
+D:\Desktop\GeneticAlgorithBlackjack\BlackjackGA\obj\Debug\BlackjackGA_MarkupCompile.lref
+D:\Desktop\GeneticAlgorithBlackjack\BlackjackGA\obj\Debug\MainWindow.baml
+D:\Desktop\GeneticAlgorithBlackjack\BlackjackGA\obj\Debug\BlackjackGA.g.resources
+D:\Desktop\GeneticAlgorithBlackjack\BlackjackGA\obj\Debug\BlackjackGA.Properties.Resources.resources
+D:\Desktop\GeneticAlgorithBlackjack\BlackjackGA\obj\Debug\BlackjackGA.csproj.GenerateResource.cache
+D:\Desktop\GeneticAlgorithBlackjack\BlackjackGA\obj\Debug\BlackjackGA.csproj.CoreCompileInputs.cache
+D:\Desktop\GeneticAlgorithBlackjack\BlackjackGA\obj\Debug\BlackjackGA.exe
+D:\Desktop\GeneticAlgorithBlackjack\BlackjackGA\obj\Debug\BlackjackGA.pdb
