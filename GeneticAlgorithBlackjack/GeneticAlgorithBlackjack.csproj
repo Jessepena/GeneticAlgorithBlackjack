@@ -55,6 +55,20 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Engine\StrategyBase.cs" />
+    <Compile Include="obj\Debug\App.g.cs" />
+    <Compile Include="obj\Debug\App.g.i.cs" />
+    <Compile Include="obj\Debug\MainWindow.g.cs" />
+    <Compile Include="obj\Debug\MainWindow.g.i.cs" />
+    <Compile Include="obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
+    <Compile Include="obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
+    <Compile Include="obj\Debug\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
+    <Compile Include="Representation\Card.cs" />
+    <Compile Include="Representation\Deck.cs" />
+    <Compile Include="Representation\Game.cs" />
+    <Compile Include="Representation\Hand.cs" />
+    <Compile Include="Utils\Randomizer.cs" />
+    <Compile Include="Utils\TestConditions.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -86,16 +100,35 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include=".vscode\settings.json" />
+    <None Include="bin\Debug\GeneticAlgorithBlackjack.exe.config" />
+    <None Include="obj\Debug\DesignTimeResolveAssemblyReferences.cache" />
+    <None Include="obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
+    <None Include="obj\Debug\GeneticAlgorithBlackjack.csproj.CoreCompileInputs.cache" />
+    <None Include="obj\Debug\GeneticAlgorithBlackjack.csprojAssemblyReference.cache" />
+    <None Include="obj\Debug\GeneticAlgorithBlackjack_MarkupCompile.cache" />
+    <None Include="obj\Debug\GeneticAlgorithBlackjack_MarkupCompile.i.cache" />
+    <None Include="obj\Debug\GeneticAlgorithBlackjack_MarkupCompile.lref" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <None Include="Representation\.vs\ProjectSettings.json" />
+    <None Include="Representation\.vs\slnx.sqlite" />
+    <None Include="Representation\.vs\VSWorkspaceState.json" />
+    <None Include="VS.gitignore" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="utils\" />
+    <Folder Include="bin\Release\" />
+    <Folder Include="Representation\.vs\Representation\v15\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="bin\Debug\GeneticAlgorithBlackjack.exe" />
+    <Content Include="bin\Debug\GeneticAlgorithBlackjack.pdb" />
+    <Content Include="obj\Debug\TempPE\Properties.Resources.Designer.cs.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
