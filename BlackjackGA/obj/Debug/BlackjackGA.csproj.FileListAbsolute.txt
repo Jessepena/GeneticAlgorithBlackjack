@@ -1,0 +1,15 @@
+D:\Desktop\Final Proyect\BlackjackGA\BlackjackGA\bin\Debug\BlackjackGA.exe.config
+D:\Desktop\Final Proyect\BlackjackGA\BlackjackGA\bin\Debug\BlackjackGA.exe
+D:\Desktop\Final Proyect\BlackjackGA\BlackjackGA\bin\Debug\BlackjackGA.pdb
+D:\Desktop\Final Proyect\BlackjackGA\BlackjackGA\obj\Debug\BlackjackGA.csprojAssemblyReference.cache
+D:\Desktop\Final Proyect\BlackjackGA\BlackjackGA\obj\Debug\MainWindow.g.cs
+D:\Desktop\Final Proyect\BlackjackGA\BlackjackGA\obj\Debug\App.g.cs
+D:\Desktop\Final Proyect\BlackjackGA\BlackjackGA\obj\Debug\BlackjackGA_MarkupCompile.cache
+D:\Desktop\Final Proyect\BlackjackGA\BlackjackGA\obj\Debug\BlackjackGA_MarkupCompile.lref
+D:\Desktop\Final Proyect\BlackjackGA\BlackjackGA\obj\Debug\MainWindow.baml
+D:\Desktop\Final Proyect\BlackjackGA\BlackjackGA\obj\Debug\BlackjackGA.g.resources
+D:\Desktop\Final Proyect\BlackjackGA\BlackjackGA\obj\Debug\BlackjackGA.Properties.Resources.resources
+D:\Desktop\Final Proyect\BlackjackGA\BlackjackGA\obj\Debug\BlackjackGA.csproj.GenerateResource.cache
+D:\Desktop\Final Proyect\BlackjackGA\BlackjackGA\obj\Debug\BlackjackGA.csproj.CoreCompileInputs.cache
+D:\Desktop\Final Proyect\BlackjackGA\BlackjackGA\obj\Debug\BlackjackGA.exe
+D:\Desktop\Final Proyect\BlackjackGA\BlackjackGA\obj\Debug\BlackjackGA.pdb
