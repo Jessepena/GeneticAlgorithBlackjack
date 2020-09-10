@@ -21,6 +21,7 @@ namespace BlackjackGA.Representation
 
     class Game
     {
+        //public bool StackTheDeck { get; set; }
         private StrategyBase strategy;
         private TestConditions testConditions;
 
@@ -34,6 +35,7 @@ namespace BlackjackGA.Representation
         public int GetStrategyScore(int numHandsToPlay)
         {
             int playerChips = 0;
+            //int hardCount =0, softCount=0, pairCount=0;
             var deck = new Deck(testConditions.NumDecks);
             var randomizer = new Randomizer();
 
@@ -41,6 +43,7 @@ namespace BlackjackGA.Representation
             Hand playerHand = new Hand();
             List<Hand> playerHands = new List<Hand>();
             List<int> betAmountPerHand = new List<int>();
+
 
             for (int handNum = 0; handNum < numHandsToPlay; handNum++)
             {
@@ -54,7 +57,42 @@ namespace BlackjackGA.Representation
                 dealerHand.AddCard(deck.DealCard());
                 dealerHand.AddCard(deck.DealCard());
                 playerHand.AddCard(deck.DealCard());
+
+                if (testConditions.StackTheDeck)
+                {
+                    // igualar las manos repartidas al jugador para que haya una mejor proporción 
+                    // entre los tipos de manos
+                    var rand = randomizer.randomFloatFromZeroToOne();
+                    if (rand < 0.33F)
+                    {
+                        // repartir un par
+                        deck.ForceNextCardToBe(playerHand.Cards[0].Rank);
+                    }
+                    if (rand >= 0.33F && rand < 0.66F)
+                    {
+                        // repartir un soft hand
+                        if (playerHand.Cards[0].Rank != Card.Ranks.Ace)
+                            deck.ForceNextCardToBe(Card.Ranks.Ace);
+                        else
+                            deck.EnsureNextCardIsnt(Card.Ranks.Ace);    // evitar el par de As
+                    }
+                    
+                }
+
                 playerHand.AddCard(deck.DealCard());
+
+                /*
+                if (playerHand.IsPair())
+                {
+                    pairCount++;
+                }
+                else if (playerHand.HasSoftAce())
+                {
+                    softCount++;
+                }
+                else
+                    hardCount++;
+                */    
 
                 // Se agrega la mano del jugador a la lista de manos, debido a que este puede
                 // tener varias manos
@@ -107,10 +145,10 @@ namespace BlackjackGA.Representation
                         }
                         // Se busca en la estrategia cual fuese el movimiento a hacer
                         var action = strategy.GetActionForHand(playerHand, dealerHand.Cards[0]);
-
-                        // Si se puede hacer un Double-Down con mas de dos cartas, hacemos un Hit
+                        /*
+                        // Si no se puede hacer un Double-Down con mas de dos cartas, hacemos un Hit
                         if (action == ActionToTake.Double && playerHand.Cards.Count > 2)
-                            action = ActionToTake.Hit;
+                            action = ActionToTake.Hit;*/
 
                         switch (action)
                         {
@@ -137,7 +175,7 @@ namespace BlackjackGA.Representation
 
                             /////// DOUBLE-DOWN ///////
                             case ActionToTake.Double:
-                                // Como las reglas estipulan, Double-Down se apuesta otro Chip y se hace el ultimo Hit.
+                                // Como las reglas estipulan, en Double-Down se dobla la apuesta y se hace el ultimo Hit.
                                 playerChips -= testConditions.BetSize;
                                 betAmountPerHand[handIndex] += testConditions.BetSize;
 
@@ -224,6 +262,29 @@ namespace BlackjackGA.Representation
             }
 
             return playerChips;
+        }
+
+        public void GetStatistics(out double average, out double stdDev, out double coeffVariation)
+        {
+            int numTests = testConditions.NumFinalTests;
+
+            ConcurrentBag<int> scores = new ConcurrentBag<int>();
+            Parallel.For(0, numTests, (i) =>
+            {
+                int score = GetStrategyScore(testConditions.NumHandsToPlay);
+                scores.Add(score);
+            });
+
+            int totalScore = scores.ToArray().Sum();
+            average = totalScore / numTests;
+            stdDev = StandardDeviation(scores);
+            coeffVariation = stdDev / average;
+        }
+
+        private double StandardDeviation(IEnumerable<int> values)
+        {
+            double avg = values.Average();
+            return Math.Sqrt(values.Average(v => Math.Pow(v - avg, 2)));
         }
     }
 }

@@ -40,6 +40,48 @@ namespace BlackjackGA.Representation
             return Cards[currentCard++];
         }
 
+        public void ForceNextCardToBe(Card.Ranks rank)
+        {
+            // esta funcion se usa cuando se desea proporcionar las manos.
+            // compensando el hecho de que los pares y las soft hands no aparecen muy a seguido,
+            // y talvez queramos forzar que se reparta una carta en específico.
+
+            // primero buscamos el rank en las cartas restantes
+            int foundAt = -1;
+            for (int i = currentCard; i < Cards.Count; i++)
+                if (Cards[i].Rank == rank)
+                {
+                    foundAt = i;
+                    break;
+                }
+
+            // en caso de que no se encuentre, nos vamos al principio del deck y empezamos de nuevo
+            if (foundAt == -1)
+            {
+                for (int i = 0; i < currentCard; i++)
+                    if (Cards[i].Rank == rank)
+                    {
+                        foundAt = i;
+                        break;
+                    }
+            }
+
+            // cambiamos la carta con la próxima carta a repartir
+            Card temp = Cards[foundAt];
+            Cards[foundAt] = Cards[currentCard];
+            Cards[currentCard] = temp;
+        }
+
+        public void EnsureNextCardIsnt(Card.Ranks rank)
+        {
+            // similar a ForceNextCardToBe, en este caso asegurarnos de que la carta no sea una en específico
+            while (Cards[currentCard].Rank == rank)
+            {
+                currentCard++;
+                ShuffleIfNeeded();
+            }
+        }
+
 
         public int CardsRemaining {
             get

@@ -30,14 +30,23 @@ namespace BlackjackGA
             BasicStrategy basicStrategy = new BasicStrategy();
             TestConditions conditions = new TestConditions();
 
+            double average;
+            double deviation;
+            double coef;
+
             var game = new Game(basicStrategy, conditions);
             double money = game.GetStrategyScore(conditions.NumHandsToPlay);
-
+            /*
             Console.WriteLine("Usted ha ganado: " + money + " pesos");
-            if (money < 0)
-                money *= -1;
-            double x = (money / (double)conditions.NumHandsToPlay) * 100;
+            double x = (money / conditions.NumHandsToPlay*conditions.BetSize);
+            Console.WriteLine("El house edge es: " + x);*/
+
+            game.GetStatistics(out average, out deviation, out coef);
+            Console.WriteLine("El average es: " + average);
+            double x = (average / conditions.NumHandsToPlay * conditions.BetSize);
             Console.WriteLine("El house edge es: " + x);
+            Console.WriteLine("La desviacion es: " + deviation);
+            Console.WriteLine("El coef de variacion es: " + coef);
         }
     }
 }
