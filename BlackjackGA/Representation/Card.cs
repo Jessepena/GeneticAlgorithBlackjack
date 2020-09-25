@@ -11,6 +11,8 @@ namespace BlackjackGA.Representation
         public enum Suits { Hearts, Spades, Clubs, Diamonds };
         public enum Ranks { Two = 2, Three, Four, Five, Six, Seven, Eight, Nine, Ten, Jack, Queen, King, Ace };
 
+        public static int HighestRankIndex = 9;
+
         public Ranks Rank { get; set; }
         public Suits Suit { get; set; }
 

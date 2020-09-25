@@ -56,6 +56,11 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Engine\BasicStrategy.cs" />
+    <Compile Include="Engine\Strategy.cs" />
+    <Compile Include="Engine\StrategyPool.cs" />
+    <Compile Include="Engine\GeneticAlgorithm.cs" />
+    <Compile Include="Engine\GeneticAlgorithmProgress.cs" />
+    <Compile Include="Engine\GeneticAlgorithmParameters.cs" />
     <Compile Include="Representation\Card.cs" />
     <Compile Include="Representation\Deck.cs" />
     <Compile Include="Representation\Game.cs" />
