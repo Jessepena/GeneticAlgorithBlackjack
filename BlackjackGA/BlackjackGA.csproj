@@ -61,6 +61,7 @@
     <Compile Include="Engine\GeneticAlgorithm.cs" />
     <Compile Include="Engine\GeneticAlgorithmProgress.cs" />
     <Compile Include="Engine\GeneticAlgorithmParameters.cs" />
+    <Compile Include="ProgramConfiguration.cs" />
     <Compile Include="Representation\Card.cs" />
     <Compile Include="Representation\Deck.cs" />
     <Compile Include="Representation\Game.cs" />

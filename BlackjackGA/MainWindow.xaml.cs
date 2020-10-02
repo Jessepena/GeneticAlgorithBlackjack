@@ -1,18 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
+using System.IO;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using System.Windows.Threading;
+using System.Linq;
 using BlackjackGA.Representation;
 using BlackjackGA.Engine;
 using BlackjackGA.Utils;
@@ -24,29 +17,64 @@ namespace BlackjackGA
     /// </summary>
     public partial class MainWindow : Window
     {
+        public ProgramSettings ProgramConfiguration { get; set; } = new ProgramSettings();
+
         public MainWindow()
         {
+            
             InitializeComponent();
+            
             BasicStrategy basicStrategy = new BasicStrategy();
-            TestConditions conditions = new TestConditions();
-
+            TestConditions testConditions = new TestConditions();
+            
             double average;
             double deviation;
             double coef;
+            
+            var game = new Game(basicStrategy, testConditions);
+            double money = game.GetStrategyScore(testConditions.NumHandsToPlay);
+            
 
-            var game = new Game(basicStrategy, conditions);
-            double money = game.GetStrategyScore(conditions.NumHandsToPlay);
-            /*
-            Console.WriteLine("Usted ha ganado: " + money + " pesos");
-            double x = (money / conditions.NumHandsToPlay*conditions.BetSize);
-            Console.WriteLine("El house edge es: " + x);*/
 
+            Console.WriteLine("RESULTADOS BASIC STRATEGY");
             game.GetStatistics(out average, out deviation, out coef);
             Console.WriteLine("El average es: " + average);
-            double x = (average / conditions.NumHandsToPlay * conditions.BetSize);
+            double x = (average / testConditions.NumHandsToPlay * testConditions.BetSize);
             Console.WriteLine("El house edge es: " + x);
             Console.WriteLine("La desviacion es: " + deviation);
             Console.WriteLine("El coef de variacion es: " + coef);
+
+            Task.Factory.StartNew(() => AsyncFindSolutionAndShowResults());
+        }
+
+        private bool PerGenerationCallBack(GeneticAlgorithmProgress progress, Strategy bestThisGen)
+        {
+            
+            Console.WriteLine("----------------------------------------------------");
+            Console.WriteLine("Generación #" + progress.GenerationNumber);
+            Console.WriteLine("Promedio de fitness de esta generación: " + progress.AvgFitnessThisGen);
+            Console.WriteLine("Mejor fitness de esta generación: " + progress.BestFitnessThisGen);
+            Console.WriteLine("Mejor fitness de todas las generaciones hasta ahora: " + progress.BestFitnessSoFar);
+
+            return true;
+        }
+
+        private void AsyncFindSolutionAndShowResults()
+        {
+            var geneticAlgorithm = new GeneticAlgorithm(ProgramConfiguration.GAsettings);
+            geneticAlgorithm.ProgressCallback = PerGenerationCallBack;
+            geneticAlgorithm.FitnessFunction = EvaluateCandidate;
+            
+            double generatedStrategyScore = EvaluateCandidate(geneticAlgorithm.FindBestSolution());
+            
+
+        }
+
+        private float EvaluateCandidate(Strategy candidate)
+        {
+            var game = new Game(candidate, ProgramConfiguration.TestSettings);
+            return game.GetStrategyScore(ProgramConfiguration.TestSettings.NumHandsToPlay);
         }
     }
+
 }
