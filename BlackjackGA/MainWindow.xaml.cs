@@ -18,6 +18,7 @@ namespace BlackjackGA
     public partial class MainWindow : Window
     {
         public ProgramSettings ProgramConfiguration { get; set; } = new ProgramSettings();
+        private Stopwatch stopwatch = new Stopwatch();
 
         public MainWindow()
         {
@@ -26,6 +27,7 @@ namespace BlackjackGA
             
             BasicStrategy basicStrategy = new BasicStrategy();
             TestConditions testConditions = new TestConditions();
+
             
             double average;
             double deviation;
@@ -43,8 +45,12 @@ namespace BlackjackGA
             Console.WriteLine("El house edge es: " + x);
             Console.WriteLine("La desviacion es: " + deviation);
             Console.WriteLine("El coef de variacion es: " + coef);
-
+            stopwatch.Restart();
             Task.Factory.StartNew(() => AsyncFindSolutionAndShowResults());
+            stopwatch.Stop();
+            
+
+
         }
 
         private bool PerGenerationCallBack(GeneticAlgorithmProgress progress, Strategy bestThisGen)
@@ -61,12 +67,18 @@ namespace BlackjackGA
 
         private void AsyncFindSolutionAndShowResults()
         {
+            stopwatch.Restart();
             var geneticAlgorithm = new GeneticAlgorithm(ProgramConfiguration.GAsettings);
             geneticAlgorithm.ProgressCallback = PerGenerationCallBack;
             geneticAlgorithm.FitnessFunction = EvaluateCandidate;
             
             double generatedStrategyScore = EvaluateCandidate(geneticAlgorithm.FindBestSolution());
-            
+
+            stopwatch.Stop();
+            Console.WriteLine("Tiempo empleado:");
+            Console.WriteLine("Minutos: " + stopwatch.Elapsed.Minutes);
+            Console.WriteLine("Segundos: " + stopwatch.Elapsed.Seconds);
+            Console.WriteLine("Milisegundos: " + stopwatch.Elapsed.Milliseconds);
 
         }
 
