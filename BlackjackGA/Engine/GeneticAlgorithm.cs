@@ -41,7 +41,12 @@ namespace BlackjackGA.Engine
 
             // Se crea un pool de candidatos (estrategias), para no crear y borrar en muchas ocasiones
             // Aquí se multiplica por 2 para cubrir esta generación y la próxima
-            pool = new StrategyPool(currentGeneticAlgorithmParams.PopulationSize * 2);     
+            pool = new StrategyPool(currentGeneticAlgorithmParams.PopulationSize * 2);
+
+            // Dependiendo del método de selección, puede ser que necesitemos ordenar los candidatos segun su fitness
+            bool needToSortByFitness =
+                currentGeneticAlgorithmParams.SelectionStyle == SelectionStyle.Roulette ||
+                currentGeneticAlgorithmParams.SelectionStyle == SelectionStyle.Ranked;
 
             // Inicializar la primera generación (generación 0) con estrategias aleatorias o "Dummies"
             for (int n = 0; n < currentGeneticAlgorithmParams.PopulationSize; n++)
@@ -61,7 +66,7 @@ namespace BlackjackGA.Engine
                     candidate.Fitness = FitnessFunction(candidate);
                 });
 
-                // verificar si se encontró una mejor estrategia 
+                // Verificar si se encontró una mejor estrategia 
                 float bestFitnessScoreThisGeneration = float.MinValue;
                 Strategy bestSolutionThisGeneration = null;
                 float totalFitness = 0;
@@ -108,7 +113,7 @@ namespace BlackjackGA.Engine
                 bool keepGoing = ProgressCallback(progress, bestSolutionThisGeneration);
                 if (!keepGoing) break;  // break en caso de que el usuario decida terminar
 
-                // termination conditions
+                // Termination conditions
                 if (currentGenerationNumber >= currentGeneticAlgorithmParams.MinGenerations)
                 {
                     // Salir del ciclo en caso se que no se vea progreso
@@ -116,16 +121,19 @@ namespace BlackjackGA.Engine
                         ((currentGenerationNumber - bestSolutionGenerationNumber) >= currentGeneticAlgorithmParams.MaxStagnantGenerations))
                         break;
 
-                    // salir del ciclo en caso de que se llegue a la cantidad máxima de generaciones
-                    if (currentGenerationNumber >= currentGeneticAlgorithmParams.MaxGenerations)
+                    // Salir del ciclo en caso de que se llegue a la cantidad máxima de generaciones
+                    if (currentGenerationNumber >= currentGeneticAlgorithmParams.MaxGenerations-1)
                         break;
                 }
 
+                // Dependiendo del método de selección, ordenamos los candidatos segun su fitness.
+                AdjustFitnessScores(needToSortByFitness);
+                
                 // Preparación para la próxima generación
                 nextGeneration.Clear();
 
 
-                // then do the selection, crossover and mutation to populate the rest of the next generation
+                // Se hace selection y crossover para obtener los candidatos de la próxima generación
                 var children = SelectAndCrossover(currentGeneticAlgorithmParams.PopulationSize);
                 nextGeneration.AddRange(children);
 
@@ -139,26 +147,69 @@ namespace BlackjackGA.Engine
 
             }
 
-
             return BestSolution;
 
         }
 
+        private void AdjustFitnessScores(bool needToSortByFitness)
+        {
+            //Dependiendo del método de selección, ordenamos los candidatos segun su fitness.
+            if (needToSortByFitness)
+                currentGeneration = currentGeneration.OrderByDescending(c => c.Fitness).ToList();
+
+            // En caso de que el método sea ranked, ajustamos los fitness para que sean ranks, por ejemplo, 0 sería el peor y N-1 el mejor.
+            if (currentGeneticAlgorithmParams.SelectionStyle == SelectionStyle.Ranked)
+            {
+                float fitness = currentGeneration.Count - 1;
+                foreach (var candidate in currentGeneration)
+                    candidate.Fitness = fitness--;
+            }
+
+            // Calcular selección roulette y ranked, los casos en los cuales se necesita ordenar.
+            totalFitness = 0;
+            if (currentGeneticAlgorithmParams.SelectionStyle == SelectionStyle.Roulette ||
+                currentGeneticAlgorithmParams.SelectionStyle == SelectionStyle.Ranked)
+            {
+                float smallestFitness = currentGeneration.Min(c => c.Fitness);
+                float addToEach = 0;
+                if (smallestFitness < 0)
+                {
+                    // En caso de que el menor fitness sea negativo, le añadimos el fitness mínimo a cada fitness para que solo tengamos valores positivos
+                    addToEach = Math.Abs(smallestFitness);
+                }
+
+                foreach (var candidate in currentGeneration)
+                {
+                    candidate.Fitness += addToEach;
+                    totalFitness += candidate.Fitness;
+                }
+            }
+        }
+
         private Strategy[] SelectAndCrossover(int numNeeded)
         {
-            // multi-threading to fill in the remaining children for the next generation
+            // Procesamiento paralelo para obtener los candidatos de la próxima generación
             ConcurrentBag<Strategy> results = new ConcurrentBag<Strategy>();
             Parallel.For(0, numNeeded, (i) =>
             {
-                var randomizer = new Randomizer();  // thread-specific version
+                var randomizer = new Randomizer(); 
 
-                // select parents
+                // Seleccionar los parents
                 Strategy parent1 = null, parent2 = null;
+                switch (currentGeneticAlgorithmParams.SelectionStyle)
+                {
+                    case SelectionStyle.Tourney:
+                        parent1 = TournamentSelectParent();
+                        parent2 = TournamentSelectParent();
+                        break;
 
-                parent1 = TournamentSelectParent();
-                parent2 = TournamentSelectParent();
-
-                // cross them over to generate a new child
+                    case SelectionStyle.Roulette:
+                    case SelectionStyle.Ranked:
+                        parent1 = RouletteAndRankedSelectParent();
+                        parent2 = RouletteAndRankedSelectParent();
+                        break;
+                }
+                // Hacer el cross over entre 2 parents para obtener el hijo
                 Strategy child = pool.GetEmpty();
                 parent1.CrossOverWith(parent2, child);
 
@@ -171,7 +222,7 @@ namespace BlackjackGA.Engine
 
         private Strategy TournamentSelectParent()
         {
-            var randomizer = new Randomizer();  // thread-specific version
+            var randomizer = new Randomizer(); 
 
             Strategy result = null;
             float bestFitness = float.MinValue;
@@ -192,7 +243,24 @@ namespace BlackjackGA.Engine
             return result;
         }
 
+        private Strategy RouletteAndRankedSelectParent()
+        {
+            var randomizer = new Randomizer();  
 
+            // Para el método Roulette, utilizamos una probabilidad proporcional al fitness en comparación
+            // al fitness total de todas las probabilidades
+            double randomValue = randomizer.randomDoubleFromZeroToOne() * totalFitness;
+            for (int i = 0; i < currentGeneticAlgorithmParams.PopulationSize; i++)
+            {
+                randomValue -= currentGeneration[i].Fitness;
+                if (randomValue <= 0)
+                {
+                    return currentGeneration[i];
+                }
+            }
+
+            return currentGeneration[currentGeneticAlgorithmParams.PopulationSize - 1];
+        }
 
     }
 }

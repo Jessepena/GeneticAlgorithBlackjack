@@ -10,25 +10,26 @@ using BlackjackGA.Representation;
 using BlackjackGA.Engine;
 using BlackjackGA.Utils;
 
+
 namespace BlackjackGA
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
+    
     public partial class MainWindow : Window
     {
         public ProgramSettings ProgramConfiguration { get; set; } = new ProgramSettings();
         private Stopwatch stopwatch = new Stopwatch();
-
+        
         public MainWindow()
         {
-            
+
             InitializeComponent();
             
             BasicStrategy basicStrategy = new BasicStrategy();
             TestConditions testConditions = new TestConditions();
 
-            
             double average;
             double deviation;
             double coef;
@@ -46,10 +47,13 @@ namespace BlackjackGA
             Console.WriteLine("La desviacion es: " + deviation);
             Console.WriteLine("El coef de variacion es: " + coef);
             stopwatch.Restart();
+            string resultados = "";
+            System.IO.File.WriteAllText(@"D:\Desktop\GeneticAlgorithBlackjack\resultados.txt", resultados);
             Task.Factory.StartNew(() => AsyncFindSolutionAndShowResults());
             stopwatch.Stop();
             
 
+            
 
         }
 
@@ -59,11 +63,14 @@ namespace BlackjackGA
             Console.WriteLine("----------------------------------------------------");
             Console.WriteLine("Generación #" + progress.GenerationNumber);
             Console.WriteLine("Promedio de fitness de esta generación: " + progress.AvgFitnessThisGen);
+            AppendTextToFile(progress.AvgFitnessThisGen);
             Console.WriteLine("Mejor fitness de esta generación: " + progress.BestFitnessThisGen);
             Console.WriteLine("Mejor fitness de todas las generaciones hasta ahora: " + progress.BestFitnessSoFar);
 
             return true;
         }
+
+
 
         private void AsyncFindSolutionAndShowResults()
         {
@@ -86,6 +93,15 @@ namespace BlackjackGA
         {
             var game = new Game(candidate, ProgramConfiguration.TestSettings);
             return game.GetStrategyScore(ProgramConfiguration.TestSettings.NumHandsToPlay);
+        }
+
+        private void AppendTextToFile(float fitness)
+        {
+            using (System.IO.StreamWriter file =
+            new System.IO.StreamWriter(@"D:\Desktop\GeneticAlgorithBlackjack\resultados.txt", true))
+            {
+                file.WriteLine(fitness.ToString());
+            }
         }
     }
 
