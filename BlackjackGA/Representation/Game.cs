@@ -62,7 +62,7 @@ namespace BlackjackGA.Representation
                 {
                     // igualar las manos repartidas al jugador para que haya una mejor proporción 
                     // entre los tipos de manos
-                    var rand = randomizer.randomFloatFromZeroToOne();
+                    var rand = randomizer.RandomFloatFromZeroToOne();
                     if (rand < 0.33F)
                     {
                         // repartir un par

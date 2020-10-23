@@ -25,13 +25,13 @@ namespace BlackjackGA.Utils
             return randomizer.Next(upper);
         }
 
-        public double randomDoubleFromZeroToOne()
+        public double RandomDoubleFromZeroToOne()
         {
             //retorna un doblue entre 0 y 1.
             return randomizer.NextDouble();
         }
 
-        public float randomFloatFromZeroToOne()
+        public float RandomFloatFromZeroToOne()
         {
             //retorna un float entre 0 y 1.
             return (float)randomizer.NextDouble();

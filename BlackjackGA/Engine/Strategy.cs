@@ -35,6 +35,40 @@ namespace BlackjackGA.Engine
             }
         }
 
+        public void Mutate(double impact)
+        {
+            // impact es el porcentaje de mutación que sufren los candidatos
+
+            // calculamos la cantidad de celdas a mutar en cada matriz con respecto al impact
+            int NumPairMutations = (int)(100F * impact);     // 10 posibles pares x 10 posibles cartas del dealer
+            int NumSoftMutations = (int)(80F * impact);     // 8 posibles soft hands x 10 posibles cartas del dealer
+            int NumHardMutations = (int)(160F * impact);     // 16 posibles hard hands x 10 posibles cartas del dealer
+
+            // pares
+            for (int i = 0; i < NumPairMutations; i++)
+            {
+                var upcardRank = GetRandomRankIndex();
+                var randomPairRank = GetRandomRankIndex();
+                SetActionForPair(upcardRank, randomPairRank, GetRandomAction(true));
+            }
+
+            // soft hands
+            for (int i = 0; i < NumSoftMutations; i++)
+            {
+                var upcardRank = GetRandomRankIndex();
+                var randomRemainder = randomizer.IntInRange(LowestSoftHandRemainder, HighestSoftHandRemainder);
+                SetActionForSoftHand(upcardRank, randomRemainder, GetRandomAction(false));
+            }
+
+            // hard hands
+            for (int i = 0; i < NumHardMutations; i++)
+            {
+                var upcardRank = GetRandomRankIndex();
+                var hardTotal = randomizer.IntInRange(LowestHardHandValue, HighestHardHandValue);
+                SetActionForHardHand(upcardRank, hardTotal, GetRandomAction(false));
+            }
+        }
+
         private int GetRandomRankIndex()
         {
             return randomizer.Lesser(Card.HighestRankIndex);
@@ -86,7 +120,7 @@ namespace BlackjackGA.Engine
                 // populate the pairs
                 for (int pairRank = 0; pairRank <= Card.HighestRankIndex; pairRank++)
                 {
-                    bool useMyAction = randomizer.randomDoubleFromZeroToOne() < percentageChanceOfMine;
+                    bool useMyAction = randomizer.RandomDoubleFromZeroToOne() < percentageChanceOfMine;
                     child.SetActionForPair(upcardRank, pairRank,
                         useMyAction ?
                             this.GetActionForPair(upcardRank, pairRank) :
@@ -96,7 +130,7 @@ namespace BlackjackGA.Engine
                 // populate the soft hands
                 for (int softRemainder = LowestSoftHandRemainder; softRemainder <= HighestSoftHandRemainder; softRemainder++)
                 {
-                    bool useMyAction = randomizer.randomDoubleFromZeroToOne() < percentageChanceOfMine;
+                    bool useMyAction = randomizer.RandomDoubleFromZeroToOne() < percentageChanceOfMine;
                     child.SetActionForSoftHand(upcardRank, softRemainder,
                         useMyAction ?
                         this.GetActionForSoftHand(upcardRank, softRemainder) :
@@ -106,7 +140,7 @@ namespace BlackjackGA.Engine
                 // populate the hard hands
                 for (int hardValue = LowestHardHandValue; hardValue <= HighestHardHandValue; hardValue++)
                 {
-                    bool useMyAction = randomizer.randomDoubleFromZeroToOne() < percentageChanceOfMine;
+                    bool useMyAction = randomizer.RandomDoubleFromZeroToOne() < percentageChanceOfMine;
                     child.SetActionForHardHand(upcardRank, hardValue,
                         useMyAction ?
                         this.GetActionForHardHand(upcardRank, hardValue) :

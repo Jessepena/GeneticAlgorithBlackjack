@@ -19,11 +19,16 @@ namespace BlackjackGA.Engine
         public int MinGenerations { get; set; } = 15;
 
         //Número máximo de generaciones
-        public int MaxGenerations { get; set; } = 50;
+        public int MaxGenerations { get; set; } = 250;
 
         //Número máximo de generaciones sin progreso, tanto en el average, como en el mejor
         public int MaxStagnantGenerations { get; set; } = 5;
+        
+        //Porcentaje de candidatos que son afectados por la mutación (De 0.0 a 1.0)
+        public double MutationRate { get; set; } = 0.10;
 
+        //Porcentaje de mutación que sufren los candidatos (De 0.0 a 1.0)
+        public double MutationImpact { get; set; } = 0.10;
 
         public override string ToString()
         {

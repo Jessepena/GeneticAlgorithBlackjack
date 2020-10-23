@@ -213,7 +213,9 @@ namespace BlackjackGA.Engine
                 Strategy child = pool.GetEmpty();
                 parent1.CrossOverWith(parent2, child);
 
-
+                // Hacer la mutación
+                if (randomizer.RandomFloatFromZeroToOne() < currentGeneticAlgorithmParams.MutationRate)
+                    child.Mutate(currentGeneticAlgorithmParams.MutationImpact);
                 results.Add(child);
             });
 
@@ -249,7 +251,7 @@ namespace BlackjackGA.Engine
 
             // Para el método Roulette, utilizamos una probabilidad proporcional al fitness en comparación
             // al fitness total de todas las probabilidades
-            double randomValue = randomizer.randomDoubleFromZeroToOne() * totalFitness;
+            double randomValue = randomizer.RandomDoubleFromZeroToOne() * totalFitness;
             for (int i = 0; i < currentGeneticAlgorithmParams.PopulationSize; i++)
             {
                 randomValue -= currentGeneration[i].Fitness;
