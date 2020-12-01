@@ -9,23 +9,22 @@ using System.Linq;
 using BlackjackGA.Representation;
 using BlackjackGA.Engine;
 using BlackjackGA.Utils;
-
+using System.Windows.Controls;
 
 namespace BlackjackGA
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     
     public partial class MainWindow : Window
     {
         public ProgramSettings ProgramConfiguration { get; set; } = new ProgramSettings();
         private Stopwatch stopwatch = new Stopwatch();
-        
+        private Canvas canvas;
+
         public MainWindow()
         {
 
             InitializeComponent();
+           
 
             BasicStrategy basicStrategy = new BasicStrategy();
             Illustrious18 lavaina = new Illustrious18();
@@ -47,16 +46,25 @@ namespace BlackjackGA
             Console.WriteLine("El house edge es: " + x);
             Console.WriteLine("La desviacion es: " + deviation);
             Console.WriteLine("El coef de variacion es: " + coef);
-            /*
-            stopwatch.Restart();
+
+            DisplayStrategyGrids(basicStrategy, "test");
+
+
+
+        }
+
+        private void btnSearchBestAlgorithm()
+        {
+            // Re-Creamos el archivo con resultados al tratar de escribir un string vacio dentro de el.
             string resultados = "";
             System.IO.File.WriteAllText(@"D:\Desktop\GeneticAlgorithBlackjack\resultados.txt", resultados);
+
+            // Empieza el conteo. 
+            stopwatch.Restart();
+
+            // Busca la solucion de la mejor estrategia dado el Genetic Algorithm
             Task.Factory.StartNew(() => AsyncFindSolutionAndShowResults());
             stopwatch.Stop();
-            */
-
-            
-
         }
 
         private bool PerGenerationCallBack(GeneticAlgorithmProgress progress, Strategy bestThisGen)
@@ -104,6 +112,15 @@ namespace BlackjackGA
             {
                 file.WriteLine(fitness.ToString());
             }
+        }
+
+        
+
+        private void DisplayStrategyGrids(StrategyBase strategy, string caption)
+        {
+            string imgFilename = "lastGen";
+            StrategyPrint.ShowPlayableHands(strategy, canvas, imgFilename, caption);
+           
         }
     }
 
