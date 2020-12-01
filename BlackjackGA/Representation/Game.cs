@@ -144,7 +144,12 @@ namespace BlackjackGA.Representation
                             break;
                         }
                         // Se busca en la estrategia cual fuese el movimiento a hacer
-                        var action = strategy.GetActionForHand(playerHand, dealerHand.Cards[0]);
+                        var action = new ActionToTake();
+                        if (testConditions.PlayingDeviations)
+                            action = strategy.GetActionForHand(playerHand, dealerHand.Cards[0], deck.trueCount);
+                        else
+                            action = strategy.GetActionForHand(playerHand, dealerHand.Cards[0]);
+
                         /*
                         // Si no se puede hacer un Double-Down con mas de dos cartas, hacemos un Hit
                         if (action == ActionToTake.Double && playerHand.Cards.Count > 2)

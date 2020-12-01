@@ -26,15 +26,16 @@ namespace BlackjackGA
         {
 
             InitializeComponent();
-            
+
             BasicStrategy basicStrategy = new BasicStrategy();
+            Illustrious18 lavaina = new Illustrious18();
             TestConditions testConditions = new TestConditions();
 
             double average;
             double deviation;
             double coef;
             
-            var game = new Game(basicStrategy, testConditions);
+            var game = new Game(lavaina, testConditions);
             double money = game.GetStrategyScore(testConditions.NumHandsToPlay);
             
 
@@ -46,12 +47,13 @@ namespace BlackjackGA
             Console.WriteLine("El house edge es: " + x);
             Console.WriteLine("La desviacion es: " + deviation);
             Console.WriteLine("El coef de variacion es: " + coef);
+            /*
             stopwatch.Restart();
             string resultados = "";
             System.IO.File.WriteAllText(@"D:\Desktop\GeneticAlgorithBlackjack\resultados.txt", resultados);
             Task.Factory.StartNew(() => AsyncFindSolutionAndShowResults());
             stopwatch.Stop();
-            
+            */
 
             
 

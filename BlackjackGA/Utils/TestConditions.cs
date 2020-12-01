@@ -4,9 +4,9 @@ namespace BlackjackGA.Utils
 {
     public class TestConditions
     {
-            public int NumDecks { get; set; } = 4;
+            public int NumDecks { get; set; } = 6;
 
-            public int NumHandsToPlay { get; set; } = 10000;
+            public int NumHandsToPlay { get; set; } = 1000000;
 
             public int BetSize { get; set; } = 2;
 
@@ -15,5 +15,11 @@ namespace BlackjackGA.Utils
             public int NumFinalTests { get; set; } = 100;
 
             public bool StackTheDeck { get; set; } = false;
+
+            public bool CountingCards { get; set; } = true;
+
+            public bool PlayingDeviations { get; set; } = true;
+
+            public bool BettingDeviations { get; set; } = false;
     }  
 }

@@ -28,7 +28,7 @@ namespace BlackjackGA.Engine
 
         public float Fitness { get; set; } = 0;
 
-        private ActionToTake[,] pairsStrategy, softStrategy, hardStrategy;
+        public ActionToTake[,] pairsStrategy, softStrategy, hardStrategy;
 
         public StrategyBase()
         {
@@ -76,7 +76,34 @@ namespace BlackjackGA.Engine
 
 
         // funcion que te devuelve la acción a tomar dado una mano y la carta del dealer
-        public ActionToTake GetActionForHand(Hand hand, Card dealerUpcard)
+        public virtual ActionToTake GetActionForHand(Hand hand, Card dealerUpcard)
+        {
+            if (hand.HandValue() >= 21) return ActionToTake.Stand;
+
+            var upcardIndex = IndexFromRank(dealerUpcard.Rank);
+
+            if (hand.IsPair())
+            {
+                var pairIndex = IndexFromRank(hand.Cards[0].Rank);
+                return pairsStrategy[upcardIndex, pairIndex];
+            }
+
+            if (hand.HasSoftAce())
+            {
+                // aquí usamos como índice la suma de todas las cartas, sin tomar en cuenta el As que está valiendo 11
+                int howManyAces = hand.Cards.Count(c => c.Rank == Card.Ranks.Ace);
+                int total = hand.Cards
+                    .Where(c => c.Rank != Card.Ranks.Ace)
+                    .Sum(c => c.RankValueHigh) +
+                    (howManyAces - 1);
+
+                return softStrategy[upcardIndex, total];
+            }
+
+            return hardStrategy[upcardIndex, hand.HandValue()];
+        }
+
+        public virtual ActionToTake GetActionForHand(Hand hand, Card dealerUpcard, int trueCount)
         {
             if (hand.HandValue() >= 21) return ActionToTake.Stand;
 

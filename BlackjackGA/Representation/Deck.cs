@@ -12,10 +12,15 @@ namespace BlackjackGA.Representation
         private int currentCard = 0;
         private List<Card> Cards;
         private int numDecks;
-        
+        private bool countingCard;
+        private TestConditions testConditions;
+        public int runningCount = 0;
+        public int trueCount = 0;
+
         public Deck(int numDecksToUse)
         {
             numDecks = numDecksToUse;
+            testConditions = new TestConditions();
             CreateRandomDeck();
         } 
 
@@ -37,12 +42,23 @@ namespace BlackjackGA.Representation
         public Card DealCard()
         {
             ShuffleIfNeeded();
+            CountIfNeeded();
             return Cards[currentCard++];
+        }
+
+        private void CountIfNeeded()
+        {
+            if(testConditions.CountingCards)
+            {
+                runningCount += (int)Cards[currentCard].CountingValue;
+                double remainingDecks = ((testConditions.NumDecks * 52) - currentCard) / 52;
+                trueCount = (int)Math.Round(runningCount / Math.Round(remainingDecks));
+            }      
         }
 
         public void ForceNextCardToBe(Card.Ranks rank)
         {
-            // esta funcion se usa cuando se desea proporcionar las manos.
+            // esta función se usa cuando se desea proporcionar las manos.
             // compensando el hecho de que los pares y las soft hands no aparecen muy a seguido,
             // y talvez queramos forzar que se reparta una carta en específico.
 
@@ -92,6 +108,8 @@ namespace BlackjackGA.Representation
 
         public void Shuffle()
         {
+            runningCount = 0;
+            trueCount = 0;
             // Usamos el algoritmo Fisher-Yates para hacer shuffle
             int start = Cards.Count - 1;
             var randomizer = new Randomizer();

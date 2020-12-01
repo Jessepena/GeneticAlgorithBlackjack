@@ -11,10 +11,15 @@ namespace BlackjackGA.Representation
         public enum Suits { Hearts, Spades, Clubs, Diamonds };
         public enum Ranks { Two = 2, Three, Four, Five, Six, Seven, Eight, Nine, Ten, Jack, Queen, King, Ace };
 
+        public enum CountingValues { Low = 1, Medium = 0, High = -1}
+
         public static int HighestRankIndex = 9;
 
+        
         public Ranks Rank { get; set; }
         public Suits Suit { get; set; }
+
+        public CountingValues CountingValue { get; set; }
 
         private static List<Ranks> rankList;
         private static List<Suits> suitList;
@@ -23,6 +28,36 @@ namespace BlackjackGA.Representation
         {
             Rank = rankValue;
             Suit = suit;
+            CountingValue = AssignCountingValue(Rank);
+
+        }
+
+        private CountingValues AssignCountingValue(Ranks rank)
+        {
+            switch(rank)
+            {
+                case Ranks.Two:
+                case Ranks.Three:
+                case Ranks.Four:
+                case Ranks.Five:
+                case Ranks.Six:
+                    return CountingValues.Low;
+
+                case Ranks.Seven:
+                case Ranks.Eight:
+                case Ranks.Nine:
+                    return CountingValues.Medium;
+
+                case Ranks.Ten:
+                case Ranks.Jack:
+                case Ranks.Queen:
+                case Ranks.King:
+                case Ranks.Ace:
+                    return CountingValues.High;
+
+                default:
+                    return CountingValues.Medium;
+            }
         }
 
         public static List<Ranks> ListOfRanks

@@ -14,7 +14,7 @@ namespace BlackjackGA.Engine
     {
         public void LoadStandardStrategy()
         {
-            // default for everything is "Stand", so fill in the rest
+            // Por defecto todo está en "Stand", por lo tanto solo llenamos el resto
             LoadHardHolding(16, "5S 5H");
             LoadHardHolding(15, "5S 5H");
             LoadHardHolding(14, "5S 5H");
