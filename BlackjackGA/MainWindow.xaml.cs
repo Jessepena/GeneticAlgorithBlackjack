@@ -18,42 +18,64 @@ namespace BlackjackGA
     {
         public ProgramSettings ProgramConfiguration { get; set; } = new ProgramSettings();
         private Stopwatch stopwatch = new Stopwatch();
-        private Canvas canvas;
 
         public MainWindow()
         {
 
             InitializeComponent();
            
+            
 
-            BasicStrategy basicStrategy = new BasicStrategy();
-            Illustrious18 lavaina = new Illustrious18();
-            TestConditions testConditions = new TestConditions();
+        }
 
+        private void btnBasicStrategy()
+        {
             double average;
             double deviation;
             double coef;
-            
-            var game = new Game(lavaina, testConditions);
+
+            BasicStrategy basicStrategy = new BasicStrategy();
+            TestConditions testConditions = new TestConditions();
+
+            var game = new Game(basicStrategy, testConditions);
             double money = game.GetStrategyScore(testConditions.NumHandsToPlay);
-            
 
-
-            Console.WriteLine("RESULTADOS BASIC STRATEGY");
             game.GetStatistics(out average, out deviation, out coef);
+            writeAllforStrategy(testConditions,"Basic Strategy", average, deviation, coef);
+            DisplayStrategyGrids(basicStrategy, "Estrategia Basica");
+        }
+
+        private void btnCountingCardsStrategy()
+        {
+            double average;
+            double deviation;
+            double coef;
+
+            Illustrious18 basicStrategy = new Illustrious18();
+            TestConditions testConditions = new TestConditions();
+
+            var game = new Game(basicStrategy, testConditions);
+            double money = game.GetStrategyScore(testConditions.NumHandsToPlay);
+
+            game.GetStatistics(out average, out deviation, out coef);
+            writeAllforStrategy(testConditions, "Basic Strategy", average, deviation, coef);
+            DisplayStrategyGrids(basicStrategy, "Counting Cards Strategy");
+        }
+
+        private void writeAllforStrategy(TestConditions testConditions, string strategyName, double average, double deviation, double coef )
+        {
+            Console.WriteLine("RESULTADOS BASIC " + strategyName);
             Console.WriteLine("El average es: " + average);
+
             double x = (average / testConditions.NumHandsToPlay * testConditions.BetSize);
+
             Console.WriteLine("El house edge es: " + x);
             Console.WriteLine("La desviacion es: " + deviation);
             Console.WriteLine("El coef de variacion es: " + coef);
 
-            DisplayStrategyGrids(basicStrategy, "test");
-
-
-
         }
 
-        private void btnSearchBestAlgorithm()
+        private void btnGeneticAlgorithm()
         {
             // Re-Creamos el archivo con resultados al tratar de escribir un string vacio dentro de el.
             string resultados = "";
@@ -119,7 +141,7 @@ namespace BlackjackGA
         private void DisplayStrategyGrids(StrategyBase strategy, string caption)
         {
             string imgFilename = "lastGen";
-            StrategyPrint.ShowPlayableHands(strategy, canvas, imgFilename, caption);
+            StrategyPrint.ShowPlayableHands(strategy, imgFilename, caption);
            
         }
     }
