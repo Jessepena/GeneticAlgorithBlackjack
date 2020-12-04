@@ -21,7 +21,6 @@ namespace BlackjackGA.Representation
 
     class Game
     {
-        //public bool StackTheDeck { get; set; }
         private StrategyBase strategy;
         private TestConditions testConditions;
 
@@ -35,7 +34,6 @@ namespace BlackjackGA.Representation
         public int GetStrategyScore(int numHandsToPlay)
         {
             int playerChips = 0;
-            //int hardCount =0, softCount=0, pairCount=0;
             var deck = new Deck(testConditions.NumDecks);
             var randomizer = new Randomizer();
 

@@ -6,7 +6,7 @@ namespace BlackjackGA.Utils
     {
             public int NumDecks { get; set; } = 6;
 
-            public int NumHandsToPlay { get; set; } = 1000;
+            public int NumHandsToPlay { get; set; } = 100000;
 
             public int BetSize { get; set; } = 2;
 
@@ -16,9 +16,9 @@ namespace BlackjackGA.Utils
 
             public bool StackTheDeck { get; set; } = false;
 
-            public bool CountingCards { get; set; } = true;
+            public bool CountingCards { get; set; } = false;
 
-            public bool PlayingDeviations { get; set; } = true;
+            public bool PlayingDeviations { get; set; } = false;
 
             public bool BettingDeviations { get; set; } = false;
     }  

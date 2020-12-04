@@ -35,7 +35,6 @@ C:\Users\jesse\Desktop\Proyecto\GeneticAlgorithBlackjack\BlackjackGA\obj\Debug\B
 C:\Users\jesse\Desktop\Proyecto\GeneticAlgorithBlackjack\BlackjackGA\obj\Debug\MainWindow.g.cs
 C:\Users\jesse\Desktop\Proyecto\GeneticAlgorithBlackjack\BlackjackGA\obj\Debug\App.g.cs
 C:\Users\jesse\Desktop\Proyecto\GeneticAlgorithBlackjack\BlackjackGA\obj\Debug\BlackjackGA_MarkupCompile.cache
-C:\Users\jesse\Desktop\Proyecto\GeneticAlgorithBlackjack\BlackjackGA\obj\Debug\BlackjackGA_MarkupCompile.lref
 C:\Users\jesse\Desktop\Proyecto\GeneticAlgorithBlackjack\BlackjackGA\obj\Debug\MainWindow.baml
 C:\Users\jesse\Desktop\Proyecto\GeneticAlgorithBlackjack\BlackjackGA\obj\Debug\BlackjackGA.g.resources
 C:\Users\jesse\Desktop\Proyecto\GeneticAlgorithBlackjack\BlackjackGA\obj\Debug\BlackjackGA.Properties.Resources.resources
@@ -58,3 +57,22 @@ C:\Users\Efrain\Desktop\Proyecto Final\code\BJ\GeneticAlgorithBlackjack\GeneticA
 C:\Users\Efrain\Desktop\Proyecto Final\code\BJ\GeneticAlgorithBlackjack\GeneticAlgorithBlackjack\BlackjackGA\obj\Debug\BlackjackGA.csproj.CoreCompileInputs.cache
 C:\Users\Efrain\Desktop\Proyecto Final\code\BJ\GeneticAlgorithBlackjack\GeneticAlgorithBlackjack\BlackjackGA\obj\Debug\BlackjackGA.exe
 C:\Users\Efrain\Desktop\Proyecto Final\code\BJ\GeneticAlgorithBlackjack\GeneticAlgorithBlackjack\BlackjackGA\obj\Debug\BlackjackGA.pdb
+C:\Users\jesse\Desktop\Proyecto\GeneticAlgorithBlackjack\BlackjackGA\obj\Debug\BlackjackGA_Content.g.cs
+C:\Users\jesse\Desktop\Proyecto\GeneticAlgorithBlackjack\BlackjackGA\bin\Debug\Xceed.Wpf.AvalonDock.dll
+C:\Users\jesse\Desktop\Proyecto\GeneticAlgorithBlackjack\BlackjackGA\bin\Debug\Xceed.Wpf.AvalonDock.Themes.Aero.dll
+C:\Users\jesse\Desktop\Proyecto\GeneticAlgorithBlackjack\BlackjackGA\bin\Debug\Xceed.Wpf.AvalonDock.Themes.Metro.dll
+C:\Users\jesse\Desktop\Proyecto\GeneticAlgorithBlackjack\BlackjackGA\bin\Debug\Xceed.Wpf.AvalonDock.Themes.VS2010.dll
+C:\Users\jesse\Desktop\Proyecto\GeneticAlgorithBlackjack\BlackjackGA\bin\Debug\Xceed.Wpf.DataGrid.dll
+C:\Users\jesse\Desktop\Proyecto\GeneticAlgorithBlackjack\BlackjackGA\bin\Debug\Xceed.Wpf.Toolkit.dll
+C:\Users\jesse\Desktop\Proyecto\GeneticAlgorithBlackjack\BlackjackGA\bin\Debug\WPFToolkit.dll
+C:\Users\jesse\Desktop\Proyecto\GeneticAlgorithBlackjack\BlackjackGA\bin\Debug\de\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\jesse\Desktop\Proyecto\GeneticAlgorithBlackjack\BlackjackGA\bin\Debug\es\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\jesse\Desktop\Proyecto\GeneticAlgorithBlackjack\BlackjackGA\bin\Debug\fr\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\jesse\Desktop\Proyecto\GeneticAlgorithBlackjack\BlackjackGA\bin\Debug\hu\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\jesse\Desktop\Proyecto\GeneticAlgorithBlackjack\BlackjackGA\bin\Debug\it\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\jesse\Desktop\Proyecto\GeneticAlgorithBlackjack\BlackjackGA\bin\Debug\pt-BR\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\jesse\Desktop\Proyecto\GeneticAlgorithBlackjack\BlackjackGA\bin\Debug\ro\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\jesse\Desktop\Proyecto\GeneticAlgorithBlackjack\BlackjackGA\bin\Debug\ru\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\jesse\Desktop\Proyecto\GeneticAlgorithBlackjack\BlackjackGA\bin\Debug\sv\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\jesse\Desktop\Proyecto\GeneticAlgorithBlackjack\BlackjackGA\bin\Debug\zh-Hans\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\jesse\Desktop\Proyecto\GeneticAlgorithBlackjack\BlackjackGA\obj\Debug\BlackjackGA.csproj.CopyComplete

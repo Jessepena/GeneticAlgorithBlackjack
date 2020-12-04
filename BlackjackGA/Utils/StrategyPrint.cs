@@ -10,10 +10,9 @@ namespace BlackjackGA.Utils
 {
     class StrategyPrint
     {
-        public static void ShowPlayableHands(StrategyBase strategy, string savedImageName, string displayText)
+        public static void ShowPlayableHands(StrategyBase strategy, Canvas canvas, string savedImageName, string displayText)
         {
             // Limpiamos el canvas
-            Canvas canvas = new Canvas();
             canvas.Children.Clear();
 
             Color hitColor      = Colors.AliceBlue,

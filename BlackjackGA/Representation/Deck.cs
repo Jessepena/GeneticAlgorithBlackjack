@@ -12,7 +12,6 @@ namespace BlackjackGA.Representation
         private int currentCard = 0;
         private List<Card> Cards;
         private int numDecks;
-        private bool countingCard;
         private TestConditions testConditions;
         public int runningCount = 0;
         public int trueCount = 0;

@@ -13,7 +13,7 @@ namespace BlackjackGA.Engine
         public int TourneySize { get; set; } = 6;
 
         //Cantidad de candidatos por generación
-        public int PopulationSize { get; set; } = 100;
+        public int PopulationSize { get; set; } = 400;
 
         //Número mínimo de generaciones
         public int MinGenerations { get; set; } = 15;
@@ -22,7 +22,7 @@ namespace BlackjackGA.Engine
         public int MaxGenerations { get; set; } = 250;
 
         //Número máximo de generaciones sin progreso, tanto en el average, como en el mejor
-        public int MaxStagnantGenerations { get; set; } = 5;
+        public int MaxStagnantGenerations { get; set; } = 10;
         
         //Porcentaje de candidatos que son afectados por la mutación (De 0.0 a 1.0)
         public double MutationRate { get; set; } = 0.10;

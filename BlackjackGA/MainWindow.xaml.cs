@@ -28,43 +28,45 @@ namespace BlackjackGA
 
         }
 
-        private void btnBasicStrategy()
+        private void btnBasicStrategy_Click(object sender, RoutedEventArgs e)
         {
             double average;
             double deviation;
             double coef;
 
             BasicStrategy basicStrategy = new BasicStrategy();
+            basicStrategy.LoadStandardStrategy();
             TestConditions testConditions = new TestConditions();
 
             var game = new Game(basicStrategy, testConditions);
             double money = game.GetStrategyScore(testConditions.NumHandsToPlay);
 
             game.GetStatistics(out average, out deviation, out coef);
-            writeAllforStrategy(testConditions,"Basic Strategy", average, deviation, coef);
-            DisplayStrategyGrids(basicStrategy, "Estrategia Basica");
+            writeAllforStrategy(testConditions,"Estrategia básica", average, deviation, coef);
+            DisplayStrategyGrids(basicStrategy, "Estrategia Básica");
         }
 
-        private void btnCountingCardsStrategy()
+        private void btnIllustrious_Click(object sender, RoutedEventArgs e)
         {
             double average;
             double deviation;
             double coef;
 
-            Illustrious18 basicStrategy = new Illustrious18();
+            Illustrious18 strategy = new Illustrious18();
+            strategy.LoadStandardStrategy();
             TestConditions testConditions = new TestConditions();
 
-            var game = new Game(basicStrategy, testConditions);
+            var game = new Game(strategy, testConditions);
             double money = game.GetStrategyScore(testConditions.NumHandsToPlay);
 
             game.GetStatistics(out average, out deviation, out coef);
-            writeAllforStrategy(testConditions, "Basic Strategy", average, deviation, coef);
-            DisplayStrategyGrids(basicStrategy, "Counting Cards Strategy");
+            writeAllforStrategy(testConditions, "Estrategia Illustrious", average, deviation, coef);
+            DisplayStrategyGrids(strategy, "Estrategia Illustrious");
         }
 
         private void writeAllforStrategy(TestConditions testConditions, string strategyName, double average, double deviation, double coef )
         {
-            Console.WriteLine("RESULTADOS BASIC " + strategyName);
+            Console.WriteLine("RESULTADOS " + strategyName);
             Console.WriteLine("El average es: " + average);
 
             double x = (average / testConditions.NumHandsToPlay * testConditions.BetSize);
@@ -75,11 +77,13 @@ namespace BlackjackGA
 
         }
 
-        private void btnGeneticAlgorithm()
+        private void btnGeneticAlgorithm_Click(object sender, RoutedEventArgs e)
         {
+            
             // Re-Creamos el archivo con resultados al tratar de escribir un string vacio dentro de el.
             string resultados = "";
-            System.IO.File.WriteAllText(@"D:\Desktop\GeneticAlgorithBlackjack\resultados.txt", resultados);
+            //System.IO.File.WriteAllText(@"D:\Desktop\Proyecto\GeneticAlgorithBlackjack\resultados.txt", resultados);
+            
 
             // Empieza el conteo. 
             stopwatch.Restart();
@@ -95,10 +99,10 @@ namespace BlackjackGA
             Console.WriteLine("----------------------------------------------------");
             Console.WriteLine("Generación #" + progress.GenerationNumber);
             Console.WriteLine("Promedio de fitness de esta generación: " + progress.AvgFitnessThisGen);
-            AppendTextToFile(progress.AvgFitnessThisGen);
+            //AppendTextToFile(progress.AvgFitnessThisGen);
             Console.WriteLine("Mejor fitness de esta generación: " + progress.BestFitnessThisGen);
             Console.WriteLine("Mejor fitness de todas las generaciones hasta ahora: " + progress.BestFitnessSoFar);
-
+            DisplayStrategyGrids(bestThisGen, "Generación #" + progress.GenerationNumber);
             return true;
         }
 
@@ -130,7 +134,7 @@ namespace BlackjackGA
         private void AppendTextToFile(float fitness)
         {
             using (System.IO.StreamWriter file =
-            new System.IO.StreamWriter(@"D:\Desktop\GeneticAlgorithBlackjack\resultados.txt", true))
+            new System.IO.StreamWriter(@"D:\Desktop\Proyecto\GeneticAlgorithBlackjack\resultados.txt", true))
             {
                 file.WriteLine(fitness.ToString());
             }
@@ -140,10 +144,16 @@ namespace BlackjackGA
 
         private void DisplayStrategyGrids(StrategyBase strategy, string caption)
         {
-            string imgFilename = "lastGen";
-            StrategyPrint.ShowPlayableHands(strategy, imgFilename, caption);
-           
+            Dispatcher.BeginInvoke(new Action(() =>
+            {
+                string imgFilename = "lastGen";
+                StrategyPrint.ShowPlayableHands(strategy, canvas, imgFilename, caption);
+            }),
+            DispatcherPriority.Background);
+
         }
+
+      
     }
 
 }
